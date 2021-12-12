@@ -14,7 +14,7 @@ public class ServeurMT extends Thread {
             int clientNumber=0;
             while (true) {
                 clientNumber++;
-                System.out.println("Waiting for connection with client "+clientNumber+"...");
+                //System.out.println("Waiting for connection with client "+clientNumber+"...");
                 Socket sock = ss.accept();
                 System.out.println("connected with client"+clientNumber+"\n");
                 new ClientThread(sock,clientNumber).start();
