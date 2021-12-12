@@ -20,19 +20,25 @@ public class Serveur {
 
         InputStream is = sock.getInputStream();
         ObjectInputStream ois = new ObjectInputStream(is);
-        City city = (City) ois.readObject();
-        System.out.println("the received object is :\n"+city);
 
-        System.out.println("treatment...");
-        city.population*=1.1;
         OutputStream os = sock.getOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(os);
-        oos.writeObject(city);
 
-        System.out.println("the objet after treatment : the city after 1 year :\n"+city);
-        System.out.println("sent done");
+        while(true){
+            City city = (City) ois.readObject();
+            System.out.println("the received object is :\n"+city);
+    
+            System.out.println("treatment...");
+            city.population*=1.1;
+            
+            oos.writeObject(city);
+    
+            System.out.println("the objet after treatment : the city after 1 year :\n"+city);
+            System.out.println("sent done");
+        }
+        
 
 
-        ss.close();
+        // ss.close();
     }
 }

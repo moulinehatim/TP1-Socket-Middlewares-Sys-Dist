@@ -1,4 +1,5 @@
 package Q1;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -11,21 +12,23 @@ public class Serveur {
         ServerSocket ss = new ServerSocket(1234);
         System.out.println("Server en action\n");
 
-        System.out.println("Attente de connexion avec client");
-        Socket s = ss.accept(); 
-        System.out.println("Connexion etablie avec client\n");
+        System.out.println("waiting for connection with client");
+        Socket s = ss.accept();
+        System.out.println("Connected with client\n");
 
         InputStream is = s.getInputStream();
         OutputStream os = s.getOutputStream();
 
-        System.out.println("Attente du nombre");
-        int nb = is.read(); // attente d’un octet
-        System.out.println("Nombre recu : "+nb+"\n");
-        int rep = nb * 2;
-        System.out.println("Nombre apres traitement : "+rep+"\n");
-        os.write(rep);
-        System.out.println("Envoi fait");
+        while (true) {
+            System.out.println("waiting for the number");
+            int nb = is.read();
+            System.out.println("Number received : " + nb + "\n");
+            int rep = nb * 2;
+            System.out.println("Number after treatment : " + rep + "\n");
+            os.write(rep);
+            System.out.println("Sent done");
+        }
 
-        ss.close();
+        // ss.close();
     }
 }

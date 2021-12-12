@@ -18,23 +18,26 @@ class Client {
         Socket s = new Socket("localhost", 1234);
         System.out.println("Connected");
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter a String :");
-        String ch = sc.next();
-
         OutputStream os = s.getOutputStream();
-        PrintWriter pw = new PrintWriter(os, true);
-        pw.println(ch) ;
-        System.out.println("\nString sent\n");
-
-        System.out.println("Waiting for response...");
         InputStream is = s.getInputStream();
-        InputStreamReader isr = new InputStreamReader(is);
-        BufferedReader br = new BufferedReader(isr);
-        String response = br.readLine();
-        System.out.println("The response is :"+response);
 
-        sc.close();
-        s.close();
+        while(true){
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter a String :");
+            String ch = sc.next();
+            PrintWriter pw = new PrintWriter(os, true);
+            pw.println(ch) ;
+            System.out.println("\nString sent\n");
+    
+            System.out.println("Waiting for response...");
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
+            String response = br.readLine();
+            System.out.println("The response is :"+response);
+        }
+        
+
+        // sc.close();
+        // s.close();
     }
 }

@@ -17,27 +17,28 @@ class Client {
         Socket s = new Socket("localhost", 1234);
         System.out.println("Connected");
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the city name :");
-        String cityName = sc.next();
-        System.out.println("Enter the city population :");
-        int cityPopulation = sc.nextInt();
-        City city = new City(cityName , cityPopulation);
-        System.out.println("Your city is :\n"+city);
-
         OutputStream os = s.getOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(os);
-        oos.writeObject(city);
-        System.out.println("\nObject sent\n");
 
-        System.out.println("Waiting for response...");
         InputStream is = s.getInputStream();
         ObjectInputStream ois = new ObjectInputStream(is);
-        city = (City) ois.readObject();
-        System.out.println("the received object is :\n"+city);
+        while (true) {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("\nEnter the city name :");
+            String cityName = sc.next();
+            System.out.println("Enter the city population :");
+            int cityPopulation = sc.nextInt();
+            City city = new City(cityName, cityPopulation);
+            System.out.println("Your city is :\n" + city);
 
-        sc.close();
-        s.close();
+            oos.writeObject(city);
+            System.out.println("\nObject sent\n");
+
+            System.out.println("Waiting for response...");
+            city = (City) ois.readObject();
+            System.out.println("the received object is :\n" + city);
+        }
+
+        // s.close();
     }
 }
-

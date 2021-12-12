@@ -20,20 +20,22 @@ public class Serveur {
         System.out.println("connected with client\n");
 
         InputStream is = sock.getInputStream();
+        OutputStream os = sock.getOutputStream();
+
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader br = new BufferedReader(isr);
-        String s = br.readLine();
-        System.out.println("the received value is :"+s);
-
-
-        System.out.println("Waiting for the string");
-        OutputStream os = sock.getOutputStream();
         PrintWriter pw = new PrintWriter(os, true);
-        System.out.println("the string after treatment : "+s.toUpperCase());
-        pw.println(s.toUpperCase());
-        System.out.println("sent done");
 
+        while (true) {
+            String s = br.readLine();
+            System.out.println("the received value is :" + s);
 
-        ss.close();
+            System.out.println("Waiting for the string");
+            System.out.println("the string after treatment : " + s.toUpperCase());
+            pw.println(s.toUpperCase());
+            System.out.println("sent done");
+        }
+
+        // ss.close();
     }
 }
